@@ -78,18 +78,18 @@ main {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 24px;
-  gap: 18px;
+  padding: clamp(12px, 2.4vw, 24px);
+  gap: clamp(10px, 1.8vw, 18px);
 }
 
 .target {
   text-align: center;
   background: var(--panel);
-  padding: 18px 24px;
+  padding: clamp(12px, 2vw, 18px) clamp(16px, 3vw, 24px);
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.05);
   box-shadow: var(--shadow);
-  min-width: min(560px, 92vw);
+  width: min(880px, 96vw);
 }
 
 .target .tag {
@@ -119,10 +119,14 @@ main {
 }
 
 .board {
+  /* Tabuleiro responsivo:
+     - 3 colunas com tamanho mínimo confortável e máximo fluido
+     - largura limitada a 96% do viewport, máximo 880px
+     - gap encolhe em ecrãs pequenos */
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
-  width: min(720px, 96vw);
+  grid-template-columns: repeat(3, minmax(72px, 1fr));
+  gap: clamp(8px, 1.6vw, 18px);
+  width: min(880px, 96vw);
   aspect-ratio: 1 / 1;
 }
 
@@ -181,16 +185,16 @@ main {
 }
 
 .mole .icon {
-  font-size: clamp(2rem, 6vw, 3.4rem);
+  font-size: clamp(1.6rem, 5.2vw, 3.4rem);
   line-height: 1;
   filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.4));
 }
 
 .mole .label {
-  font-size: 0.78rem;
+  font-size: clamp(0.65rem, 1.6vw, 0.78rem);
   font-weight: 700;
   background: rgba(0, 0, 0, 0.35);
-  padding: 4px 10px;
+  padding: clamp(3px, 0.6vw, 4px) clamp(8px, 1.4vw, 10px);
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   color: var(--text);
@@ -355,6 +359,15 @@ footer {
 
 @media (max-width: 600px) {
   .app-header { flex-direction: column; gap: 10px; align-items: stretch; }
-  .stats { justify-content: space-between; }
+  .stats {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+  .stat { padding: 6px 10px; font-size: 0.85rem; }
   .help { grid-template-columns: 1fr; }
+  .board {
+    /* Em ecrãs muito estreitos, o minmax de 72px mantém os botões clicáveis */
+    grid-template-columns: repeat(3, minmax(64px, 1fr));
+  }
 }
