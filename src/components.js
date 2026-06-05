@@ -1,56 +1,61 @@
 // Catálogo de componentes técnicos com ícone e aliases (palavras/expressões alvo)
+// Cada componente tem um `tier` (1=fácil, 2=médio, 3=difícil).
+// Nível 1 usa só tier 1, nível 2 usa tiers 1+2, nível 3+ usa todos.
 export const COMPONENTS = [
-  // Eletrónica / hardware
-  { id: 'resistor', icon: '🟫', label: 'Resistor', aliases: ['Resistência', 'Resistor', 'Resistência fixa'] },
-  { id: 'capacitor', icon: '🟡', label: 'Condensador', aliases: ['Condensador', 'Capacitor', 'Capacitância'] },
-  { id: 'inductor', icon: '🟧', label: 'Bobina', aliases: ['Bobina', 'Indutor', 'Indutância'] },
-  { id: 'diode', icon: '▶️', label: 'Díodo', aliases: ['Díodo', 'Diodo', 'Retificador'] },
-  { id: 'led', icon: '💡', label: 'LED', aliases: ['LED', 'Light Emitting Diode', 'Díodo emissor de luz'] },
-  { id: 'transistor', icon: '🔻', label: 'Transístor', aliases: ['Transístor', 'Transistor', 'BJT', 'MOSFET'] },
-  { id: 'battery', icon: '🔋', label: 'Bateria', aliases: ['Bateria', 'Pilha', 'Acumulador'] },
-  { id: 'ic', icon: '🧠', label: 'Circuito Integrado', aliases: ['CI', 'Circuito Integrado', 'Chip', 'Microchip'] },
-  { id: 'microcontroller', icon: '🤖', label: 'Microcontrolador', aliases: ['Microcontrolador', 'MCU', 'Microcontrolador Arduino'] },
-  { id: 'sensor', icon: '📡', label: 'Sensor', aliases: ['Sensor', 'Transdutor'] },
-  { id: 'buzzer', icon: '🔔', label: 'Buzzers', aliases: ['Buzzer', 'Buzzers', 'Campainha piezoelétrica'] },
-  { id: 'antenna', icon: '📶', label: 'Antena', aliases: ['Antena', 'Antena Wi-Fi', 'Antena RF'] },
+  // Tier 1 — conceitos do dia-a-dia
+  { id: 'resistor', tier: 1, icon: '🟫', label: 'Resistor', aliases: ['Resistência', 'Resistor'] },
+  { id: 'capacitor', tier: 1, icon: '🟡', label: 'Condensador', aliases: ['Condensador', 'Capacitor'] },
+  { id: 'battery', tier: 1, icon: '🔋', label: 'Bateria', aliases: ['Bateria', 'Pilha'] },
+  { id: 'led', tier: 1, icon: '💡', label: 'LED', aliases: ['LED', 'Light Emitting Diode'] },
+  { id: 'cpu', tier: 1, icon: '🧮', label: 'CPU', aliases: ['CPU', 'Processador'] },
+  { id: 'ram', tier: 1, icon: '🧠', label: 'RAM', aliases: ['RAM', 'Memória RAM'] },
+  { id: 'ssd', tier: 1, icon: '🗄️', label: 'SSD', aliases: ['SSD', 'Disco SSD'] },
+  { id: 'router', tier: 1, icon: '📡', label: 'Router', aliases: ['Router', 'Roteador'] },
+  { id: 'sensor', tier: 1, icon: '📡', label: 'Sensor', aliases: ['Sensor', 'Transdutor'] },
+  { id: 'react', tier: 1, icon: '⚛️', label: 'React', aliases: ['React', 'ReactJS'] },
+  { id: 'html', tier: 1, icon: '🌐', label: 'HTML', aliases: ['HTML'] },
+  { id: 'css', tier: 1, icon: '🎨', label: 'CSS', aliases: ['CSS'] },
+  { id: 'js', tier: 1, icon: '🟨', label: 'JavaScript', aliases: ['JavaScript', 'JS'] },
+  { id: 'terminal', tier: 1, icon: '🖥️', label: 'Terminal', aliases: ['Terminal', 'CLI'] },
 
-  // Computação / web
-  { id: 'cpu', icon: '🧮', label: 'CPU', aliases: ['CPU', 'Processador', 'Unidade Central de Processamento'] },
-  { id: 'gpu', icon: '🎮', label: 'GPU', aliases: ['GPU', 'Placa gráfica', 'Processador gráfico'] },
-  { id: 'ram', icon: '🧠', label: 'RAM', aliases: ['RAM', 'Memória RAM', 'Memória de acesso aleatório'] },
-  { id: 'rom', icon: '💾', label: 'ROM', aliases: ['ROM', 'Memória ROM', 'Firmware'] },
-  { id: 'ssd', icon: '🗄️', label: 'SSD', aliases: ['SSD', 'Disco SSD', 'Solid State Drive'] },
-  { id: 'hdd', icon: '💽', label: 'HDD', aliases: ['HDD', 'Disco rígido', 'Hard Disk Drive'] },
-  { id: 'motherboard', icon: '🧩', label: 'Motherboard', aliases: ['Motherboard', 'Placa-mãe', 'Mainboard'] },
-  { id: 'psu', icon: '🔌', label: 'Fonte de Alimentação', aliases: ['Fonte de alimentação', 'PSU', 'Power Supply'] },
-  { id: 'cooler', icon: '❄️', label: 'Dissipador', aliases: ['Dissipador', 'Cooler', 'Ventoinha'] },
-  { id: 'router', icon: '📡', label: 'Router', aliases: ['Router', 'Roteador', 'Roteador de rede'] },
+  // Tier 2 — termos técnicos
+  { id: 'inductor', tier: 2, icon: '🟧', label: 'Bobina', aliases: ['Bobina', 'Indutor'] },
+  { id: 'diode', tier: 2, icon: '▶️', label: 'Díodo', aliases: ['Díodo', 'Diodo'] },
+  { id: 'transistor', tier: 2, icon: '🔻', label: 'Transístor', aliases: ['Transístor', 'Transistor', 'MOSFET'] },
+  { id: 'ic', tier: 2, icon: '🧠', label: 'Circuito Integrado', aliases: ['CI', 'Circuito Integrado', 'Chip'] },
+  { id: 'microcontroller', tier: 2, icon: '🤖', label: 'Microcontrolador', aliases: ['Microcontrolador', 'MCU'] },
+  { id: 'buzzer', tier: 2, icon: '🔔', label: 'Buzzer', aliases: ['Buzzer', 'Campainha piezoelétrica'] },
+  { id: 'antenna', tier: 2, icon: '📶', label: 'Antena', aliases: ['Antena', 'Antena Wi-Fi'] },
+  { id: 'gpu', tier: 2, icon: '🎮', label: 'GPU', aliases: ['GPU', 'Placa gráfica'] },
+  { id: 'rom', tier: 2, icon: '💾', label: 'ROM', aliases: ['ROM', 'Memória ROM', 'Firmware'] },
+  { id: 'hdd', tier: 2, icon: '💽', label: 'HDD', aliases: ['HDD', 'Disco rígido'] },
+  { id: 'motherboard', tier: 2, icon: '🧩', label: 'Motherboard', aliases: ['Motherboard', 'Placa-mãe', 'Mainboard'] },
+  { id: 'psu', tier: 2, icon: '🔌', label: 'Fonte de Alimentação', aliases: ['Fonte de alimentação', 'PSU'] },
+  { id: 'cooler', tier: 2, icon: '❄️', label: 'Dissipador', aliases: ['Dissipador', 'Cooler'] },
+  { id: 'vite', tier: 2, icon: '⚡', label: 'Vite', aliases: ['Vite', 'Vite.js'] },
+  { id: 'node', tier: 2, icon: '🟢', label: 'Node.js', aliases: ['Node.js', 'Node', 'NodeJS'] },
+  { id: 'docker', tier: 2, icon: '🐳', label: 'Docker', aliases: ['Docker', 'Contentor', 'Container'] },
+  { id: 'git', tier: 2, icon: '🔧', label: 'Git', aliases: ['Git', 'Controlo de versão'] },
+  { id: 'api', tier: 2, icon: '🔗', label: 'API', aliases: ['API', 'Endpoint'] },
+  { id: 'database', tier: 2, icon: '🗃️', label: 'Base de Dados', aliases: ['Base de Dados', 'Database', 'SQL'] },
+  { id: 'json', tier: 2, icon: '📦', label: 'JSON', aliases: ['JSON', 'JavaScript Object Notation'] },
+  { id: 'ts', tier: 2, icon: '🟦', label: 'TypeScript', aliases: ['TypeScript', 'TS'] },
+  { id: 'tailwind', tier: 2, icon: '🌬️', label: 'Tailwind', aliases: ['Tailwind', 'Tailwind CSS'] },
+  { id: 'firewall', tier: 2, icon: '🛡️', label: 'Firewall', aliases: ['Firewall', 'Parede de fogo'] },
 
-  // Web / dev
-  { id: 'react', icon: '⚛️', label: 'React', aliases: ['React', 'React.js', 'ReactJS'] },
-  { id: 'vite', icon: '⚡', label: 'Vite', aliases: ['Vite', 'Vite.js', 'Ferramenta Vite'] },
-  { id: 'node', icon: '🟢', label: 'Node.js', aliases: ['Node.js', 'Node', 'NodeJS'] },
-  { id: 'docker', icon: '🐳', label: 'Docker', aliases: ['Docker', 'Contentor', 'Container Docker'] },
-  { id: 'linux', icon: '🐧', label: 'Linux', aliases: ['Linux', 'Kernel Linux', 'Sistema Linux'] },
-  { id: 'git', icon: '🔧', label: 'Git', aliases: ['Git', 'Sistema de controlo de versão', 'Controlo de versão'] },
-  { id: 'api', icon: '🔗', label: 'API', aliases: ['API', 'Interface de Programação', 'Endpoint'] },
-  { id: 'database', icon: '🗃️', label: 'Base de Dados', aliases: ['Base de Dados', 'Database', 'DB', 'SQL'] },
-  { id: 'json', icon: '📦', label: 'JSON', aliases: ['JSON', 'JavaScript Object Notation'] },
-  { id: 'html', icon: '🌐', label: 'HTML', aliases: ['HTML', 'HyperText Markup Language'] },
-  { id: 'css', icon: '🎨', label: 'CSS', aliases: ['CSS', 'Cascading Style Sheets', 'Folhas de estilo'] },
-  { id: 'js', icon: '🟨', label: 'JavaScript', aliases: ['JavaScript', 'JS', 'ECMAScript'] },
-  { id: 'ts', icon: '🟦', label: 'TypeScript', aliases: ['TypeScript', 'TS'] },
-  { id: 'tailwind', icon: '🌬️', label: 'Tailwind', aliases: ['Tailwind', 'Tailwind CSS', 'TailwindCSS'] },
-  { id: 'vite-plugin', icon: '🧪', label: 'Plugin Vite', aliases: ['Plugin Vite', 'Vite plugin', 'Plugin do Vite'] },
-  { id: 'terminal', icon: '🖥️', label: 'Terminal', aliases: ['Terminal', 'Linha de comandos', 'CLI', 'Shell'] },
-
-  // Redes
-  { id: 'firewall', icon: '🛡️', label: 'Firewall', aliases: ['Firewall', 'Firewall de rede', 'Parede de fogo'] },
-  { id: 'dns', icon: '📨', label: 'DNS', aliases: ['DNS', 'Domain Name System', 'Servidor DNS'] },
-  { id: 'tcp', icon: '🔌', label: 'TCP', aliases: ['TCP', 'Transmission Control Protocol', 'Protocolo TCP'] },
-  { id: 'http', icon: '📡', label: 'HTTP', aliases: ['HTTP', 'HyperText Transfer Protocol', 'Protocolo HTTP'] },
-  { id: 'https', icon: '🔒', label: 'HTTPS', aliases: ['HTTPS', 'HTTP Seguro', 'HTTP over TLS'] },
+  // Tier 3 — jargão
+  { id: 'dns', tier: 3, icon: '📨', label: 'DNS', aliases: ['DNS', 'Domain Name System'] },
+  { id: 'tcp', tier: 3, icon: '🔌', label: 'TCP', aliases: ['TCP', 'Transmission Control Protocol'] },
+  { id: 'http', tier: 3, icon: '📡', label: 'HTTP', aliases: ['HTTP', 'HyperText Transfer Protocol'] },
+  { id: 'https', tier: 3, icon: '🔒', label: 'HTTPS', aliases: ['HTTPS', 'HTTP over TLS'] },
+  { id: 'vite-plugin', tier: 3, icon: '🧪', label: 'Plugin Vite', aliases: ['Plugin Vite', 'Vite plugin'] },
 ]
+
+// Devolve o pool de componentes permitido para um dado nível
+export function poolForLevel(level) {
+  const maxTier = level >= 3 ? 3 : level
+  return COMPONENTS.filter((c) => c.tier <= maxTier)
+}
 
 // Devolve um alias aleatório de um componente
 export function pickAlias(component) {
