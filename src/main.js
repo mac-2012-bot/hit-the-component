@@ -10,14 +10,14 @@ const POINTS_HIT = 10
 const POINTS_MISS = -5
 
 // Curva de dificuldade: tempo visível da ronda (ms) por nível.
-// Nível 1 é calmo, nível 2 mais rápido, nível 3+ é brabo.
+// Curva mais suave: começa calmo, cada nível tira ~250-300ms do limite superior.
 const ROUND_TIMES = {
-  1: { min: 1900, max: 2400, delay: 500 },
-  2: { min: 1400, max: 1900, delay: 400 },
-  3: { min: 1100, max: 1500, delay: 350 },
-  4: { min: 900,  max: 1250, delay: 300 },
-  5: { min: 750,  max: 1050, delay: 280 },
-  6: { min: 600,  max: 900,  delay: 260 },
+  1: { min: 2400, max: 3000, delay: 700 },
+  2: { min: 2000, max: 2500, delay: 600 },
+  3: { min: 1700, max: 2100, delay: 500 },
+  4: { min: 1400, max: 1700, delay: 450 },
+  5: { min: 1150, max: 1400, delay: 400 },
+  6: { min: 950,  max: 1200, delay: 380 },
 }
 const MAX_LEVEL = 6
 
