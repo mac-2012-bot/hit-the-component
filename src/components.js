@@ -69,8 +69,10 @@ export function findComponentByAlias(alias) {
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
     .toLowerCase()
+    .replace(/[.!?,;]+$/g, '') // tira pontuação à direita
     .trim()
   const target = norm(alias)
+  if (!target) return null
   for (const c of COMPONENTS) {
     if (c.aliases.some((a) => norm(a) === target)) return c
   }

@@ -107,17 +107,35 @@ function flashHole(holeEl, kind) {
   holeEl.classList.add(`flash-${kind}`)
 }
 
-function pickDistinct(pool, n, excludeIds = []) {
-  const filtered = pool.filter((c) => !excludeIds.includes(c.id))
+function pickDistinct(pool, n) {
+  // Baralha a pool e escolhe os primeiros n com id e icon únicos.
+  // Se a pool não tiver itens distintos suficientes, completa com o catálogo
+  // global (tier 1+) garantindo também unicidade visual.
   const out = []
-  const used = new Set(excludeIds)
-  while (out.length < n && used.size < pool.length) {
-    const c = filtered[Math.floor(Math.random() * filtered.length)]
-    if (!used.has(c.id)) {
-      used.add(c.id)
+  const usedIds = new Set()
+  const usedIcons = new Set()
+  const shuffled = [...pool].sort(() => Math.random() - 0.5)
+
+  for (const c of shuffled) {
+    if (out.length >= n) break
+    if (usedIds.has(c.id) || usedIcons.has(c.icon)) continue
+    usedIds.add(c.id)
+    usedIcons.add(c.icon)
+    out.push(c)
+  }
+
+  // Fallback: se a pool for pequena (ex.: nível 1 sem repetição possível)
+  if (out.length < n) {
+    const fillers = [...COMPONENTS].sort(() => Math.random() - 0.5)
+    for (const c of fillers) {
+      if (out.length >= n) break
+      if (usedIds.has(c.id) || usedIcons.has(c.icon)) continue
+      usedIds.add(c.id)
+      usedIcons.add(c.icon)
       out.push(c)
     }
   }
+
   return out
 }
 
@@ -140,13 +158,8 @@ function placeRound() {
 
   const pool = poolForLevel(state.level)
   const comps = pickDistinct(pool, ACTIVE_HOLES)
-  // Fallback se o nível for pequeno: completa com tier 1
-  while (comps.length < ACTIVE_HOLES) {
-    const fillers = pickDistinct(COMPONENTS, 1, comps.map((c) => c.id))
-    if (!fillers.length) break
-    comps.push(fillers[0])
-  }
-  const targetIdx = Math.floor(Math.random() * ACTIVE_HOLES)
+  // O alvo é sempre um dos 3 que aparecem, escolhido aleatoriamente.
+  const targetIdx = Math.floor(Math.random() * comps.length)
   const targetComponent = comps[targetIdx]
   const alias = pickAlias(targetComponent)
   setTarget(alias)
@@ -234,6 +247,7 @@ function advanceOrNext() {
 }
 
 function finishLevel() {
+  // Pausa curtíssima só para limpar a ronda atual — sem modal, sem bloqueio.
   state.running = false
   clearTimeout(state.timer)
   state.activeHoles.clear()
@@ -247,14 +261,7 @@ function finishLevel() {
     state.lives = Math.min(INITIAL_LIVES, state.lives + 1)
   }
 
-  const title = promoted ? `Nível ${state.level} concluído! 🎉` : `Fim do nível ${state.level} 💪`
-  const subtitle = promoted
-    ? `Acertaste ${state.hitsInLevel}/${ROUNDS_PER_LEVEL} — passas ao <b>nível ${nextLevel}</b> (mais rápido).`
-    : state.hitsInLevel >= PROMOTION_THRESHOLD
-      ? `Já estás no nível máximo. Fica mais um bocado!`
-      : `Acertaste ${state.hitsInLevel}/${ROUNDS_PER_LEVEL}. Tenta outra vez para subir.`
-
-  // Reset contadores do nível para o próximo
+  // Reset contadores do nível
   state.roundInLevel = 0
   state.hitsInLevel = 0
   state.missesInLevel = 0
@@ -262,27 +269,15 @@ function finishLevel() {
   state.level = nextLevel
   state.running = true
   updateHud()
-  showLevelSummary(title, subtitle, () => placeRound())
-}
 
-function showLevelSummary(title, subtitle, after) {
-  // Pequeno banner no topo em vez de modal para manter o ritmo
-  const banner = document.createElement('div')
-  banner.className = 'modal-backdrop level-summary'
-  banner.innerHTML = `
-    <div class="modal" role="dialog" aria-modal="true">
-      <h2>${title}</h2>
-      <p>${subtitle}</p>
-      <div class="actions">
-        <button class="btn" data-action="go">Continuar</button>
-      </div>
-    </div>
-  `
-  document.body.appendChild(banner)
-  banner.querySelector('[data-action="go"]').addEventListener('click', () => {
-    banner.remove()
-    after()
-  })
+  // Toast discreto (sem modal) e o jogo continua automaticamente.
+  if (promoted) {
+    showToast(`Nível ${nextLevel} · mais rápido!`, 'good')
+  } else {
+    showToast(`Fim do nível · ${state.lives} ❤️`, 'warn')
+  }
+
+  setTimeout(placeRound, ROUND_TIMES[Math.min(state.level, MAX_LEVEL)].delay)
 }
 
 function updateHud() {
