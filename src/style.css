@@ -11,7 +11,18 @@
   --bad: #ff4757;
   --warn: #f1c40f;
   --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --board-bg: linear-gradient(160deg, #1a1f33, #0e1322);
+  --board-border: rgba(124, 92, 255, 0.18);
+  --target-accent: #7c5cff;
 }
+
+/* Paleta por nível — cor de fundo do tabuleiro muda a cada promoção */
+main.lvl-1 { --board-bg: linear-gradient(160deg, #1a1f33, #0e1322); --board-border: rgba(124, 92, 255, 0.18); --target-accent: #7c5cff; }
+main.lvl-2 { --board-bg: linear-gradient(160deg, #10243a, #0a1322); --board-border: rgba(0, 212, 255, 0.22); --target-accent: #00d4ff; }
+main.lvl-3 { --board-bg: linear-gradient(160deg, #1d2a3a, #0a1a22); --board-border: rgba(46, 204, 113, 0.22); --target-accent: #2ecc71; }
+main.lvl-4 { --board-bg: linear-gradient(160deg, #2a1f33, #1a0f22); --board-border: rgba(241, 196, 15, 0.22); --target-accent: #f1c40f; }
+main.lvl-5 { --board-bg: linear-gradient(160deg, #2e1d2a, #1a0a14); --board-border: rgba(255, 71, 87, 0.24); --target-accent: #ff4757; }
+main.lvl-6 { --board-bg: linear-gradient(160deg, #2a0f2a, #0a0a1f); --board-border: rgba(255, 0, 200, 0.28); --target-accent: #ff00c8; }
 
 * { box-sizing: border-box; }
 
@@ -105,10 +116,11 @@ main {
   font-size: clamp(1.4rem, 2.6vw, 2.2rem);
   font-weight: 800;
   margin-top: 6px;
-  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  background: linear-gradient(90deg, var(--target-accent), var(--accent-2));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  transition: background 0.6s ease;
 }
 
 .target .hint {
@@ -128,6 +140,12 @@ main {
   gap: clamp(8px, 1.6vw, 18px);
   width: min(880px, 96vw);
   aspect-ratio: 1 / 1;
+  padding: clamp(6px, 1vw, 12px);
+  border-radius: 22px;
+  background: var(--board-bg);
+  border: 1px solid var(--board-border);
+  box-shadow: var(--shadow);
+  transition: background 0.6s ease, border-color 0.6s ease, box-shadow 0.6s ease;
 }
 
 .hole {

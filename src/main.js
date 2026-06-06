@@ -50,14 +50,13 @@ function renderShell() {
         <div class="stat"><span class="label">Recorde</span><span class="value" id="best">${state.best}</span></div>
       </div>
     </header>
-    <main>
+    <main class="lvl-1" id="main">
       <section class="target" id="target">
         <span class="tag">Clica no componente correspondente a:</span>
         <span class="word" id="targetWord">—</span>
         <span class="hint" id="targetHint">Carrega em <b>Começar</b> para jogar</span>
       </section>
-      <section class="board" id="board">
-        ${Array.from({ length: HOLES_COUNT })
+      <section class="board" id="board">        ${Array.from({ length: HOLES_COUNT })
           .map(
             (_, i) => `
             <div class="hole" data-hole="${i}">
@@ -285,6 +284,13 @@ function updateHud() {
   document.getElementById('score').textContent = state.score
   document.getElementById('level').textContent = state.level
   document.getElementById('round').textContent = `${state.roundInLevel}/${ROUNDS_PER_LEVEL}`
+  // Mudar a cor do tabuleiro com base no nível actual
+  const lvl = Math.min(state.level, 6)
+  const mainEl = document.getElementById('main')
+  if (mainEl) {
+    for (let i = 1; i <= 6; i++) mainEl.classList.remove(`lvl-${i}`)
+    mainEl.classList.add(`lvl-${lvl}`)
+  }
   if (state.score > state.best) {
     state.best = state.score
     localStorage.setItem('htc_best', String(state.best))
